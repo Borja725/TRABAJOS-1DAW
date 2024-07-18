@@ -1,0 +1,39 @@
+-- Active: 1704873046558@@192.168.56.101@3306@CULTIUS
+use CULTIUS;
+show tables;
+DESCRIBE TIPUS_CULTIUS;
+INSERT INTO TIPUS_CULTIUS (cod, nom) values ('ARR', 'arros');
+DESCRIBE PAISOS;
+INSERT INTO PAISOS VALUES ('ESP', 'España', 'Europa');
+
+DESCRIBE PROVINCIES;
+
+INSERT INTO `PROVINCIES` VALUES
+    ('VAL', 'ESP', 'Valencia', 1000000),
+    ('ALA', 'ESP', 'Alacant', 700000),
+    ('CAS', 'ESP', 'Castelló', 500000),
+    ('MAD', 'ESP', 'Madrid', 2000000);
+
+DESCRIBE COMARQUES;
+INSERT INTO `COMARQUES` VALUES ('RB', 'Ribera Baixa', 'VAL', 'ESP');
+
+
+UPDATE PROVINCIES SET hab = hab * 1.1;
+
+UPDATE `COMARQUES`
+    SET nom = CONCAT('La ', nom)
+    WHERE cod = 'RB';
+
+SELECT * FROM `COMARQUES`;
+
+SELECT * FROM `PROVINCIES`;
+SELECT *
+    INTO OUTFILE '/tmp/provincies.txt'
+    FROM `PROVINCIES`;
+
+DELETE FROM `COMARQUES`;
+
+DELETE FROM `PROVINCIES`;
+
+LOAD DATA INFILE '/tmp/provincies.txt'
+    INTO TABLE PROVINCIES; 
